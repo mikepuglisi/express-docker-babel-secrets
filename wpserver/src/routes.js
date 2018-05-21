@@ -1,7 +1,41 @@
 const { Router } = require('express');
 const fs = require('fs');
+const Redis = require("ioredis");
+const redis = new Redis({  
+  host: 'redis',   // Redis host
+})
 
 const routes = Router();
+
+routes.get('/redis', (req, res) => {
+
+  // Arguments to commands are flattened, so the following are the same:
+  redis.sadd('set', 1, 3, 5, 7);
+  redis.sadd('set', [1, 3, 5, 7]);
+    
+  // All arguments are passed directly to the redis server:
+  redis.set('key', 100, 'EX', 10);
+
+  
+  redis.set('foo', 'bar');
+  redis.get('foo', function (err, result) {
+    console.log(result);
+  });
+   
+  // Or using a promise if the last argument isn't a function
+  redis.get('key').then(function (result) {
+    console.log(result);
+  });
+     
+  // Or using a promise if the last argument isn't a function
+  redis.get('foo').then(function (result) {
+    console.log(result);
+  });
+   
+
+
+  res.render('index', { title: 'Redis!!' });
+});
 
 /**
  * GET home page
@@ -12,7 +46,7 @@ routes.get('/', (req, res) => {
     console.log('db3!!!!', db)    
   } catch (err) {}
 
-  res.render('index', { title: 'Express Babel!' });
+  res.render('index', { title: 'Express!' });
 });
 
 /**

@@ -10,8 +10,7 @@ services:
     secrets:
       - db_password
     volumes:
-      - ./wpserver:/home/app
-      - /home/app/node_modules
+      - ./wpserver:/home/app/wpserver
     ports:
       - "5000:80"
       - "5858:5858"
