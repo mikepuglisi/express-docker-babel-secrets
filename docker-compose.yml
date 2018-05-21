@@ -1,0 +1,35 @@
+version: "3.3"
+
+services:
+
+  wpserver:
+    build: ./webapp
+    command: npm run dev #nodemon -L ./src/index.js exec "node -r babel-register"  # node ./src/index.js # exec "node -r babel-register" # nodemon ./src/index.js exec "node -r babel-register" # nodemon --watch views -e js,pug src/index.js --exec \"node -r dotenv/config -r babel-register\"
+    tmpfs:
+      - /run        
+    secrets:
+      - db_password
+    volumes:
+      - ./webapp:/app
+    ports:
+      - "5001:80"
+      - "5858:5858"
+    networks:
+      - front-tier
+      - back-tier
+
+  redis:
+    image: redis:alpine
+    ports: ["6379"]
+    networks:
+      - back-tier
+
+
+networks:
+  front-tier:
+  back-tier:
+
+secrets:
+  db_password:
+    file: ./secrets/db_password
+
