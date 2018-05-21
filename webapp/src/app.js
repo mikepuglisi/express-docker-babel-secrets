@@ -1,8 +1,8 @@
-import express from 'express';
-import path from 'path';
-import logger from 'morgan';
-import bodyParser from 'body-parser';
-import routes from './routes';
+const express = require('express');
+const path = require('path');
+const logger = require('morgan');
+const bodyParser = require('body-parser');
+const routes = require('./routes');
 
 const app = express();
 app.disable('x-powered-by');
@@ -38,4 +38,4 @@ app.use((err, req, res, next) => { // eslint-disable-line no-unused-vars
     });
 });
 
-export default app;
+module.exports = app;

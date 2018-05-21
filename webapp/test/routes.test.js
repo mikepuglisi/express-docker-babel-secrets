@@ -1,5 +1,5 @@
-import request from 'supertest';
-import app from '../src/app.js';
+const request = require('supertest');
+const app = require('../src/app.js');
 
 describe('GET /', () => {
   it('should render properly', async () => {

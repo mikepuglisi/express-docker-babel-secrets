@@ -1,5 +1,5 @@
-import { Router } from 'express';
-import fs from 'fs';
+const { Router } = require('express');
+const fs = require('fs');
 
 const routes = Router();
 
@@ -7,9 +7,12 @@ const routes = Router();
  * GET home page
  */
 routes.get('/', (req, res) => {
-  const db = fs.readFileSync('/run/secrets/db_password', 'utf8'); ///run/secrets/DB_PASSWORD
-  console.log('db3!!!!', db)    
-  res.render('index', { title: 'Express Babel!' + db });
+  try {
+    const db = fs.readFileSync('/run/secrets/db_password', 'utf8'); ///run/secrets/DB_PASSWORD
+    console.log('db3!!!!', db)    
+  } catch (err) {}
+
+  res.render('index', { title: 'Express Babel!' });
 });
 
 /**
@@ -36,4 +39,4 @@ routes.get('/list', (req, res, next) => {
   res.render('index', { title });
 });
 
-export default routes;
+module.exports = routes;
