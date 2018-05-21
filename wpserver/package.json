@@ -14,13 +14,10 @@
     "npm": ">=3.10.0"
   },
   "scripts": {
-    "prestart": "npm run -s build",
-    "start": "node dist/index.js",
+    "start": "node src/index.js",
     "dev": "nodemon -L src/index.js",
-    "clean": "rimraf dist",
-    "build": "npm run clean && mkdir -p dist && babel src -s -D -d dist",
-    "test": "jest --watch",
-    "lint": "esw -w src test"
+    "test:docker": "jest",
+    "test": "jest --watch"
   },
   "keywords": [
     "express",
@@ -39,8 +36,7 @@
     "express": "^4.16.2",
     "ioredis": "^3.2.2",
     "morgan": "^1.9.0",
-    "pug": "^2.0.0-beta11",
-    "rimraf": "^2.6.2"
+    "pug": "^2.0.0-beta11"
   },
   "devDependencies": {
     "dotenv": "^4.0.0",

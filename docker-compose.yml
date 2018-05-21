@@ -2,9 +2,16 @@ version: "3.3"
 
 services:
 
+  nginx:
+    image: nginx:1.14.0-alpine
+    networks:
+      - front-tier
+    ports:
+      - "80:80"
+
   wpserver:
     build: ./wpserver
-    command: /home/app/node_modules/nodemon/bin/nodemon.js -L ./src/index.js #nodemon -L ./src/index.js exec "node -r babel-register"  # node ./src/index.js # exec "node -r babel-register" # nodemon ./src/index.js exec "node -r babel-register" # nodemon --watch views -e js,pug src/index.js --exec \"node -r dotenv/config -r babel-register\"
+    command: /home/app/node_modules/nodemon/bin/nodemon.js -L ./src/index.js # npm run test:docker #  #nodemon -L ./src/index.js exec "node -r babel-register"  # node ./src/index.js # exec "node -r babel-register" # nodemon ./src/index.js exec "node -r babel-register" # nodemon --watch views -e js,pug src/index.js --exec \"node -r dotenv/config -r babel-register\"
     tmpfs:
       - /run        
     secrets:
@@ -13,7 +20,7 @@ services:
       - ./wpserver:/home/app/wpserver
     ports:
       - "5000:80"
-      - "5858:5858"
+      - "5858:5858"      
     networks:
       - front-tier
       - back-tier
